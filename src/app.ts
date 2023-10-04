@@ -1,12 +1,26 @@
-import express from 'express'
+import * as dotenv from "dotenv";
+import express from "express";
+import cors from "cors";
+import { pinoHttp } from 'pino-http';
+import pinoLogger from "pino";
+import { config } from "./config";
+import { registerRouters } from "./routes";
 
-const app = express()
-const port = 8080 // default port to listen
+dotenv.config();
 
-app.get('/', (req: any, res: any) => {
-    res.send('Welcome to Stream Club!')
-})
+async function main() {
 
-app.listen(port, () => {
-    console.log(`Example app is now listening on port ${port}`)
-})
+  const app = express();
+
+  app.use(pinoHttp());
+  app.use(cors());
+  app.use(express.json());
+  registerRouters(app);
+
+  app.listen(config.port, () => {
+    const logger = pinoLogger();
+    logger.info(`Process API listening on port ${config.port}`);
+  });
+}
+
+main();

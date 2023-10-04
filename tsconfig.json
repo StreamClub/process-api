@@ -17,6 +17,8 @@
         "@services/*": ["services/*"],
         "@controllers": ["controllers"],
         "@controllers/*": ["controllers/*"],
+        "@config": ["config"],
+        "@config/*": ["config/*"],
       }
     },
     "include": ["src/**/*"],
