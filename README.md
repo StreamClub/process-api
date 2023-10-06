@@ -12,6 +12,11 @@ Otra forma de ejecutarlo es (con esto esta habilitado nodemon):
 ```
 sudo docker-compose up --build
 ```
+Para correr los tests ejecutar el siguiente comando:
+```
+npm test
+```
+
 
 Para matarlo ejecutar el siguiente comando:
 ```
