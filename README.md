@@ -5,8 +5,19 @@ Para correr ejecutar:
 ```
 sudo docker build -t papi .
 
-sudo docker run -p 8080:8080 papi 
+sudo docker run -it --init -p 8080:8080 papi
+
 ```
+Otra forma de ejecutarlo es (con esto esta habilitado nodemon):
+```
+sudo docker-compose up --build
+```
+Para correr los tests ejecutar el siguiente comando:
+```
+npm test
+```
+
+
 Para matarlo ejecutar el siguiente comando:
 ```
 sudo docker ps

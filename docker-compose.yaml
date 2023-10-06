@@ -1,0 +1,10 @@
+version: '3'
+services:
+  papi:
+      container_name: papi
+      build: .
+      restart: unless-stopped
+      volumes:
+        -   ${VOLUME_DIR}:/app
+      ports:
+        - ${PORT}:8000
