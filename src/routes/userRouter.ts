@@ -21,5 +21,14 @@ export function UserRouter() {
       )
     );
 
+    router.post(
+      "/login",
+      validateSchema(CreateUserSchema, [FieldOptions.body]),
+      handleRequest(
+        (req) => userController.login(req),
+        StatusCodes.OK
+      )
+    );
+
     return router;
 }
