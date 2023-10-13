@@ -1,8 +1,7 @@
-// import { RequestDtos, ResponseDtos } from '@dtos';
 import axios from 'axios';
 import { Request } from '@models';
 import { config } from '@config';
-import { CreateUserDto, LoginDto } from '@dtos';
+import { CreateUserDto, Credentials, LoginDto } from '@dtos';
 
 class UserController {
 
@@ -10,7 +9,7 @@ class UserController {
 
   public async register(
     req: Request<CreateUserDto>,
-  ): Promise<any> {
+  ): Promise<Credentials> {
     const response = await axios.post(`${this.USERS_URL}/register`, {
       ...req.body,
     });
@@ -19,8 +18,8 @@ class UserController {
 
   public async login(
     req: Request<LoginDto>,
-  ): Promise<any> {
-    const response = await axios.post(this.USERS_URL + "/login", {
+  ): Promise<Credentials> {
+    const response = await axios.post(`${this.USERS_URL}/login`, {
       ...req.body,
     });
     return response.data;
