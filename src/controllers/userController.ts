@@ -6,12 +6,12 @@ import { CreateUserDto, LoginDto } from '@dtos';
 
 class UserController {
 
-  private USERS_URL = config.uapiUrl + "/users";
+  private USERS_URL = `${config.uapiUrl}/users`;
 
   public async register(
     req: Request<CreateUserDto>,
   ): Promise<any> {
-    const response = await axios.post(this.USERS_URL + "/register", {
+    const response = await axios.post(`${this.USERS_URL}/register`, {
       ...req.body,
     });
     return response.data;
