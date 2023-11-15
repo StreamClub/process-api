@@ -1,13 +1,11 @@
 import Joi from "joi";
 
-export class CreateUserDto {
+export class LoginDto {
     email: string;
     password: string;
-    validationCode: string;
 }
 
-export const CreateUserSchema = Joi.object({
+export const LoginSchema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().required(),
-    validationCode: Joi.string().required(),
 });

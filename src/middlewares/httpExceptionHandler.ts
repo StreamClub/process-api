@@ -3,13 +3,14 @@ import {
     NotFoundException,
     UnauthorizedException,
   } from '@exceptions';
+import { AxiosError } from 'axios';
   import { NextFunction, Request, Response } from 'express';
   import { StatusCodes } from 'http-status-codes';
 
   // Don't remove the next parameter, otherwise the middleware is ignored by Express
 
   export function exceptionToHttpError(
-    error: Error,
+    error: Error | AxiosError,
     req: Request,
     res: Response,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -17,6 +18,7 @@ import {
   ) {
     let code: number;
     let description: string;
+    let message = error.message;
 
     if (error instanceof DomainException) {
       code = StatusCodes.CONFLICT;
@@ -27,13 +29,18 @@ import {
     } else if (error instanceof UnauthorizedException) {
       code = StatusCodes.UNAUTHORIZED;
       description = 'Unauthorized';
-    } else {
+    }  else if (error instanceof AxiosError) {
+      console.log(error.response?.data)
+      code = error.response?.status || StatusCodes.INTERNAL_SERVER_ERROR;
+      description = error.response?.data?.description || 'Internal server error';
+      message = error.response?.data?.error || error.message;
+    }
+    else {
       code = StatusCodes.INTERNAL_SERVER_ERROR;
       description = 'Internal server error';
     }
-
     res.status(code).json({
-      error: error.message,
+      error: message,
       statusCode: code,
       description,
     });
