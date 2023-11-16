@@ -6,7 +6,7 @@ import {
 import { Request } from "@models";
 import { Router } from "express";
 import { StatusCodes } from "http-status-codes";
-import { CreateUserSchema, LoginSchema } from "@dtos";
+import { CreateUserSchema, LoginSchema, RefreshCredentialsSchema } from "@dtos";
 import { userController } from "@controllers";
 
 export function UserRouter() {
@@ -29,6 +29,16 @@ export function UserRouter() {
         StatusCodes.OK
       )
     );
+
+        router.post(
+        "/refreshCredentials",
+        validateSchema(RefreshCredentialsSchema, [FieldOptions.body]),
+        handleRequest(
+            (req) => userController.refreshCredentials(req),
+            StatusCodes.OK
+        )
+    );
+
 
     return router;
 }
