@@ -24,7 +24,8 @@
     "nodemon": "^2.0.15",
     "pino": "^8.15.4",
     "pino-http": "^8.5.0",
-    "prettier": "^3.0.3"
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.14",

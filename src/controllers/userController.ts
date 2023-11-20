@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Request } from '@models';
 import { config } from '@config';
-import { CreateUserDto, Credentials, LoginDto } from '@dtos';
+import { CreateUserDto, Credentials, LoginDto, RefreshCredentialsDto } from '@dtos';
 
 class UserController {
 
@@ -20,6 +20,15 @@ class UserController {
     req: Request<LoginDto>,
   ): Promise<Credentials> {
     const response = await axios.post(`${this.USERS_URL}/login`, {
+      ...req.body,
+    });
+    return response.data;
+  }
+
+  public async refreshCredentials(
+    req: Request<RefreshCredentialsDto>,
+  ): Promise<Credentials> {
+    const response = await axios.post(`${this.USERS_URL}/refreshCredentials`, {
       ...req.body,
     });
     return response.data;
