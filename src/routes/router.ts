@@ -1,7 +1,8 @@
 import { Express } from "express";
 import { UserRouter } from "./userRouter";
+import { HealthRouter } from "./healthRouter";
 
 export function registerRouters(app: Express) {
-  app.get("/health", (_, res) => res.status(200).send());
+  app.use("/health", HealthRouter());
   app.use("/users", UserRouter());
 }
