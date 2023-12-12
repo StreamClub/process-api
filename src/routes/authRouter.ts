@@ -3,20 +3,19 @@ import {
     handleRequest,
     validateSchema,
   } from "@middlewares";
-import { Request } from "@models";
 import { Router } from "express";
 import { StatusCodes } from "http-status-codes";
-import { CreateUserSchema, LoginSchema, RefreshCredentialsSchema } from "@dtos";
-import { userController } from "@controllers";
+import { CreateUserSchema, LoginSchema, RefreshCredentialsSchema, sendVerificationCodeSchema } from "@dtos";
+import { authController } from "@controllers";
 
-export function UserRouter() {
+export function AuthRouter() {
     const router = Router();
 
     router.post(
       "/register",
       validateSchema(CreateUserSchema, [FieldOptions.body]),
       handleRequest(
-        (req) => userController.register(req),
+        (req) => authController.register(req),
         StatusCodes.CREATED
       )
     );
@@ -25,19 +24,28 @@ export function UserRouter() {
       "/login",
       validateSchema(LoginSchema, [FieldOptions.body]),
       handleRequest(
-        (req) => userController.login(req),
+        (req) => authController.login(req),
         StatusCodes.OK
       )
     );
 
-        router.post(
+    router.post(
         "/refreshCredentials",
         validateSchema(RefreshCredentialsSchema, [FieldOptions.body]),
         handleRequest(
-            (req) => userController.refreshCredentials(req),
+            (req) => authController.refreshCredentials(req),
             StatusCodes.OK
         )
     );
+
+    router.post(
+        "/sendVerificationCode",
+        validateSchema(sendVerificationCodeSchema, [FieldOptions.body]),
+        handleRequest(
+            (req) => authController.sendVerificationCode(req),
+            StatusCodes.CREATED
+        )
+    )
 
 
     return router;
