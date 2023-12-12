@@ -3,7 +3,6 @@ import {
     handleRequest,
     validateSchema,
   } from "@middlewares";
-import { Request } from "@models";
 import { Router } from "express";
 import { StatusCodes } from "http-status-codes";
 import { CreateUserSchema, LoginSchema, RefreshCredentialsSchema } from "@dtos";
