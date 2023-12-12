@@ -6,9 +6,9 @@ class HealthController {
 
   private UAPI_HEALTH = `${config.uapiUrl}/health`;
 
-  public async wakeUpServices(): Promise<string> {
-    const response = await axios.get(`${this.UAPI_HEALTH}`);
-    return response.data;
+  public async wakeUpServices(): Promise<void> {
+    await axios.get(`${this.UAPI_HEALTH}`);
+    return;
   }
 
 }
