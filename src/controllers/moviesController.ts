@@ -17,6 +17,16 @@ class MoviesController {
     });
     return response.data;
   }
+
+  public async searchMovie(req: Request<GetMovieDto>) {
+    const response = await axios.get(`${this.MOVIES_URL}`, {
+        params: {
+            query: req.query.query,
+        }
+    });
+    return response.data;
+  }
+
 }
 
 const movieController = new MoviesController();

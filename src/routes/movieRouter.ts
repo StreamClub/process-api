@@ -1,5 +1,5 @@
 import { movieController } from "@controllers";
-import { GetMovieSchema } from "@dtos";
+import { GetMovieSchema, SearchMovieSchema } from "@dtos";
 import {
     FieldOptions,
     handleRequest, validateSchema,
@@ -11,14 +11,14 @@ import { StatusCodes } from "http-status-codes";
 export function MovieRouter() {
     const router = Router();
 
-    // router.get(
-    //     "/search",
-    //     validateSchema(SearchMovieSchema, [FieldOptions.query]),
-    //     handleRequest(
-    //         // (req) => movieController.searchMovie(req),
-    //         StatusCodes.OK
-    //     )
-    // );
+    router.get(
+        "/",
+        validateSchema(SearchMovieSchema, [FieldOptions.query]),
+        handleRequest(
+            (req) => movieController.searchMovie(req),
+            StatusCodes.OK
+        )
+    );
 
     router.get(
         "/:movieId",
