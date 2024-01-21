@@ -9,10 +9,7 @@ export function validateJWT(req: Request, res: Response, next: NextFunction) {
     throw new UnauthorizedException('Missing auth token');
   }
   try {
-    const decoded = jwt.verify(jwtToken, config.tokenKey) as {
-        email: string;
-        userId: string;
-    };
+    jwt.verify(jwtToken, config.tokenKey)
     next();
   } catch (err) {
     throw new UnauthorizedException('Invalid auth token');
