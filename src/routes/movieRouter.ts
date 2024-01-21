@@ -24,6 +24,7 @@ export function MovieRouter() {
 
     router.get(
         "/:movieId",
+        validateJWT,
         validateSchema(GetMovieSchema, [FieldOptions.params, FieldOptions.query]),
         handleRequest(
             (req) => movieController.getMovie(req),
