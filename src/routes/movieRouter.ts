@@ -4,6 +4,7 @@ import {
     FieldOptions,
     handleRequest, validateSchema,
   } from "@middlewares";
+import { validateJWT } from "@middlewares/validateJwt";
 import { Router } from "express";
 import { StatusCodes } from "http-status-codes";
 
@@ -13,6 +14,7 @@ export function MovieRouter() {
 
     router.get(
         "/",
+        validateJWT,
         validateSchema(SearchMovieSchema, [FieldOptions.query]),
         handleRequest(
             (req) => movieController.searchMovie(req),
