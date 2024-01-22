@@ -11,20 +11,20 @@ class MoviesController {
     req: Request<GetMovieDto>,
   ): Promise<any> {
     const response = await axios.get(`${this.MOVIES_URL}/${req.params.movieId}`, {
-        params: {
-            country: req.query.country
-        },
-        headers: req.headers
+      params: {
+        country: req.query.country
+      },
+      headers: { Authorization: `${req.headers.authorization}` }
     });
     return response.data;
   }
 
   public async searchMovie(req: Request<GetMovieDto>) {
     const response = await axios.get(`${this.MOVIES_URL}`, {
-        params: {
-            query: req.query.query,
-        },
-        headers: req.headers
+      params: {
+        query: req.query.query,
+      },
+      headers: { Authorization: `${req.headers.authorization}` }
     });
     return response.data;
   }
