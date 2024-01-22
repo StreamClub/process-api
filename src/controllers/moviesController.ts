@@ -13,7 +13,8 @@ class MoviesController {
     const response = await axios.get(`${this.MOVIES_URL}/${req.params.movieId}`, {
         params: {
             country: req.query.country
-        }
+        },
+        headers: req.headers
     });
     return response.data;
   }
@@ -22,7 +23,8 @@ class MoviesController {
     const response = await axios.get(`${this.MOVIES_URL}`, {
         params: {
             query: req.query.query,
-        }
+        },
+        headers: req.headers
     });
     return response.data;
   }
