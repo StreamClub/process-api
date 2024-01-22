@@ -11,28 +11,46 @@ export function WatchlistRouter() {
     router.post(
         '/',
         validateJWT,
-        handleRequest((req) => watchlistController.create(req), StatusCodes.CREATED)
+        handleRequest(
+            (req) => watchlistController.create(req),
+            StatusCodes.CREATED
+        )
     )
 
     router.get(
         '/:userId',
         validateJWT,
-        validateSchema(GetWatchlistSchema, [FieldOptions.params, FieldOptions.query]),
+        validateSchema(GetWatchlistSchema, [
+            FieldOptions.params,
+            FieldOptions.query,
+        ]),
         handleRequest((req) => watchlistController.get(req), StatusCodes.OK)
     )
 
     router.put(
         '/',
         validateJWT,
-        validateSchema(AddContentSchema, [FieldOptions.params, FieldOptions.body]),
-        handleRequest((req) => watchlistController.addContent(req), StatusCodes.OK)
+        validateSchema(AddContentSchema, [
+            FieldOptions.params,
+            FieldOptions.body,
+        ]),
+        handleRequest(
+            (req) => watchlistController.addContent(req),
+            StatusCodes.OK
+        )
     )
 
     router.delete(
         '/',
         validateJWT,
-        validateSchema(AddContentSchema, [FieldOptions.params, FieldOptions.body]),
-        handleRequest((req) => watchlistController.removeContent(req), StatusCodes.OK)
+        validateSchema(AddContentSchema, [
+            FieldOptions.params,
+            FieldOptions.body,
+        ]),
+        handleRequest(
+            (req) => watchlistController.removeContent(req),
+            StatusCodes.OK
+        )
     )
 
     return router
