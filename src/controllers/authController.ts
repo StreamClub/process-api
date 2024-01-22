@@ -16,10 +16,11 @@ class AuthController {
     const response = await axios.post(`${this.AUTH_URL}/register`, {
       ...req.body,
     })
-    await axios.post(`${config.uapiUrl}/watchlist`, {},
+    const token = response.data.token;
+    await axios.post(`${config.capiUrl}/watchlist`, {},
       {
         headers: {
-          Authorization: `${req.headers.authorization}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     )
