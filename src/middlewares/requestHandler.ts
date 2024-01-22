@@ -16,6 +16,7 @@ export function handleRequest<T, U>(
       const resObject = (await handler(req)) as object;
       resObject ? res.status(statusCode).json(parseToCamelCase(resObject)) : res.status(statusCode).send();
     } catch (error) {
+      console.log(error)
       next(error);
     }
   };
