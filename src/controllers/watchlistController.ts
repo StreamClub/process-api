@@ -6,16 +6,6 @@ class WatchlistController {
 
     private WATCHLIST_URL = `${config.capiUrl}/watchlist`;
 
-    public async create(req: Request<any>) {
-        const response = await axios.post(`${this.WATCHLIST_URL}`, {},
-            {
-                headers: {
-                    Authorization: `${req.headers.authorization}`
-                }
-            });
-        return response.data;
-    };
-
     public async get(req: Request<any>) {
         const response = await axios.get(`${this.WATCHLIST_URL}/${req.params.userId}`, {
             params: req.query,
