@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Request } from '@models';
 import { config } from '@config';
-import { GetMovieDto } from '@dtos';
+import { GetMovieDto, SearchContentDto } from '@dtos';
 
 class MoviesController {
 
@@ -19,7 +19,7 @@ class MoviesController {
     return response.data;
   }
 
-  public async searchMovie(req: Request<GetMovieDto>) {
+  public async searchMovie(req: Request<SearchContentDto>) {
     const response = await axios.get(`${this.MOVIES_URL}`, {
       params: {
         query: req.query.query,
