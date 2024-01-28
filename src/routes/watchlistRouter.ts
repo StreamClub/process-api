@@ -7,16 +7,6 @@ import { AddContentSchema, GetWatchlistSchema } from '@dtos'
 
 export function WatchlistRouter() {
     const router = Router()
-
-    router.post(
-        '/',
-        validateJWT,
-        handleRequest(
-            (req) => watchlistController.create(req),
-            StatusCodes.CREATED
-        )
-    )
-
     router.get(
         '/:userId',
         validateJWT,

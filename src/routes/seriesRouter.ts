@@ -1,5 +1,5 @@
-import { movieController } from "@controllers";
-import { GetMovieSchema, SearchContentSchema } from "@dtos";
+import { seriesController } from "@controllers";
+import { SearchContentSchema } from "@dtos";
 import {
     FieldOptions,
     handleRequest, validateSchema,
@@ -8,8 +8,7 @@ import { validateJWT } from "@middlewares/validateJwt";
 import { Router } from "express";
 import { StatusCodes } from "http-status-codes";
 
-
-export function MovieRouter() {
+export function SeriesRouter() {
     const router = Router();
 
     router.get(
@@ -17,21 +16,10 @@ export function MovieRouter() {
         validateJWT,
         validateSchema(SearchContentSchema, [FieldOptions.query]),
         handleRequest(
-            (req) => movieController.searchMovie(req),
+            (req) => seriesController.searchSeries(req),
             StatusCodes.OK
         )
     );
-
-    router.get(
-        "/:movieId",
-        validateJWT,
-        validateSchema(GetMovieSchema, [FieldOptions.params, FieldOptions.query]),
-        handleRequest(
-            (req) => movieController.getMovie(req),
-            StatusCodes.OK
-        )
-    );
-
 
     return router;
 }
