@@ -1,5 +1,5 @@
 import { seriesController } from "@controllers";
-import { SearchContentSchema } from "@dtos";
+import { GetSeriesSchema, SearchContentSchema } from "@dtos";
 import {
     FieldOptions,
     handleRequest, validateSchema,
@@ -17,6 +17,17 @@ export function SeriesRouter() {
         validateSchema(SearchContentSchema, [FieldOptions.query]),
         handleRequest(
             (req) => seriesController.searchSeries(req),
+            StatusCodes.OK
+        )
+    );
+
+
+    router.get(
+        "/:seriesId",
+        validateJWT,
+        validateSchema(GetSeriesSchema, [FieldOptions.query, FieldOptions.params]),
+        handleRequest(
+            (req) => seriesController.getSeries(req),
             StatusCodes.OK
         )
     );
