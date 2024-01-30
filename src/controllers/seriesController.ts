@@ -17,6 +17,16 @@ class SeriesController {
         return response.data;
     }
 
+    public async getSeries(req: Request<SearchContentDto>) {
+        const response = await axios.get(`${this.SERIES_URL}/${req.params.seriesId}`, {
+            params: {
+                country: req.query.country,
+            },
+            headers: { Authorization: `${req.headers.authorization}` }
+        });
+        return response.data;
+    }
+
 }
 
 const seriesController = new SeriesController();
