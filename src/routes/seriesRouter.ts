@@ -1,5 +1,5 @@
 import { seriesController } from "@controllers";
-import { GetSeriesSchema, SearchContentSchema } from "@dtos";
+import { GetSeasonSchema, GetSeriesSchema, SearchContentSchema } from "@dtos";
 import {
     FieldOptions,
     handleRequest, validateSchema,
@@ -21,13 +21,22 @@ export function SeriesRouter() {
         )
     );
 
-
     router.get(
         "/:seriesId",
         validateJWT,
         validateSchema(GetSeriesSchema, [FieldOptions.query, FieldOptions.params]),
         handleRequest(
             (req) => seriesController.getSeries(req),
+            StatusCodes.OK
+        )
+    );
+
+    router.get(
+        "/:seriesId/seasons/:seasonId",
+        validateJWT,
+        validateSchema(GetSeasonSchema, [FieldOptions.query, FieldOptions.params]),
+        handleRequest(
+            (req) => seriesController.getSeason(req),
             StatusCodes.OK
         )
     );
