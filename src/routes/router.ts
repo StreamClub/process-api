@@ -1,9 +1,5 @@
+import { AuthRouter, HealthRouter, MovieRouter, SeriesRouter, WatchlistRouter, ArtistRouter } from "@routes";
 import { Express } from "express";
-import { AuthRouter } from "./authRouter";
-import { HealthRouter } from "./healthRouter";
-import { MovieRouter } from "./movieRouter";
-import { WatchlistRouter } from "./watchlistRouter";
-import { SeriesRouter } from "./seriesRouter";
 
 export function registerRouters(app: Express) {
   app.use("/health", HealthRouter());
@@ -11,4 +7,5 @@ export function registerRouters(app: Express) {
   app.use("/movies", MovieRouter());
   app.use("/series", SeriesRouter());
   app.use("/watchlist", WatchlistRouter());
+  app.use("/artists", ArtistRouter());
 }

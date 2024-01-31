@@ -16,4 +16,4 @@ class HealthController {
 
 const healthController = new HealthController();
 
-export { healthController  };
+export { healthController };
