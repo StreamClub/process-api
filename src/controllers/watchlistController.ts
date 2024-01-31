@@ -1,32 +1,28 @@
-import axios from 'axios';
 import { Request } from '@models';
 import { config } from '@config';
+import { authorizedDel, authorizedGet, authorizedPut } from 'utils';
 
 class WatchlistController {
 
     private WATCHLIST_URL = `${config.capiUrl}/watchlist`;
 
     public async get(req: Request<any>) {
-        const response = await axios.get(`${this.WATCHLIST_URL}/${req.params.userId}`, {
-            params: req.query,
-            headers: { Authorization: `${req.headers.authorization}` }
+        return await authorizedGet(`${this.WATCHLIST_URL}/${req.params.userId}`, req.headers.authorization, {
+            page: req.query.page,
+            pageSize: req.query.pageSize,
         });
-        return response.data;
     };
 
     public async addContent(req: Request<any>) {
-        const response = await axios.put(`${this.WATCHLIST_URL}`, { ...req.body }, {
-            headers: { Authorization: `${req.headers.authorization}` }
+        return await authorizedPut(`${this.WATCHLIST_URL}`, req.headers.authorization, {
+            ...req.body
         });
-        return response.data;
     };
 
     public async removeContent(req: Request<any>) {
-        const response = await axios.delete(`${this.WATCHLIST_URL}`, {
-            data: { ...req.body },
-            headers: { Authorization: `${req.headers.authorization}` }
+        return await authorizedDel(`${this.WATCHLIST_URL}`, req.headers.authorization, {
+            ...req.body
         });
-        return response.data;
     }
 
 }

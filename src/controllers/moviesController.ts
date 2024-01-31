@@ -1,8 +1,7 @@
-import axios from 'axios';
 import { Request } from '@models';
 import { config } from '@config';
 import { GetMovieDto, SearchContentDto } from '@dtos';
-
+import { authorizedGet } from 'utils';
 class MoviesController {
 
   private MOVIES_URL = `${config.capiUrl}/movies`;
@@ -10,23 +9,18 @@ class MoviesController {
   public async getMovie(
     req: Request<GetMovieDto>,
   ): Promise<any> {
-    const response = await axios.get(`${this.MOVIES_URL}/${req.params.movieId}`, {
-      params: {
+    return await authorizedGet(`${this.MOVIES_URL}/${req.params.movieId}`, req.headers.authorization,
+      {
         country: req.query.country
-      },
-      headers: { Authorization: `${req.headers.authorization}` }
-    });
-    return response.data;
+      });
   }
 
   public async searchMovie(req: Request<SearchContentDto>) {
-    const response = await axios.get(`${this.MOVIES_URL}`, {
-      params: {
+    return await authorizedGet(`${this.MOVIES_URL}`, req.headers.authorization,
+      {
         query: req.query.query,
-      },
-      headers: { Authorization: `${req.headers.authorization}` }
-    });
-    return response.data;
+        page: req.query.page,
+      });
   }
 
 }

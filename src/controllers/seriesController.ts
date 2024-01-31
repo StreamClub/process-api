@@ -1,40 +1,30 @@
-import axios from 'axios';
 import { Request } from '@models';
 import { config } from '@config';
 import { GetSeasonDto, GetSeriesDto, SearchContentDto } from '@dtos';
+import { authorizedGet } from 'utils';
 
 class SeriesController {
 
     private SERIES_URL = `${config.capiUrl}/series`;
 
     public async searchSeries(req: Request<SearchContentDto>) {
-        const response = await axios.get(`${this.SERIES_URL}`, {
-            params: {
-                query: req.query.query,
-            },
-            headers: { Authorization: `${req.headers.authorization}` }
+        return await authorizedGet(`${this.SERIES_URL}`, req.headers.authorization, {
+            query: req.query.query,
+            page: req.query.page,
         });
-        return response.data;
     }
 
     public async getSeries(req: Request<GetSeriesDto>) {
-        const response = await axios.get(`${this.SERIES_URL}/${req.params.seriesId}`, {
-            params: {
-                country: req.query.country,
-            },
-            headers: { Authorization: `${req.headers.authorization}` }
+        return await authorizedGet(`${this.SERIES_URL}/${req.params.seriesId}`, req.headers.authorization, {
+            country: req.query.country,
         });
-        return response.data;
     }
 
     public async getSeason(req: Request<GetSeasonDto>) {
-        const response = await axios.get(`${this.SERIES_URL}/${req.params.seriesId}/seasons/${req.params.seasonId}`, {
-            params: {
-                country: req.query.country,
-            },
-            headers: { Authorization: `${req.headers.authorization}` }
+        return await authorizedGet(`${this.SERIES_URL}/${req.params.seriesId}/seasons/${req.params.seasonId}`,
+            req.headers.authorization, {
+            country: req.query.country,
         });
-        return response.data;
     }
 
 }
