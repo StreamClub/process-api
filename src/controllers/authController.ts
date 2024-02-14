@@ -17,7 +17,9 @@ class AuthController {
       ...req.body,
     })
     const token = response.token;
-    return await authorizedPost(`${config.capiUrl}/watchlist`, `Bearer ${token}`)
+    await authorizedPost(`${config.capiUrl}/watchlist`, `Bearer ${token}`)
+    await authorizedPost(`${config.capiUrl}/seenContent`, `Bearer ${token}`)
+    return response
   }
 
   public async login(req: Request<LoginDto>): Promise<Credentials> {
