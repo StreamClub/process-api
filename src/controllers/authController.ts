@@ -1,5 +1,5 @@
 import { Request } from '@models'
-import { config } from '@config'
+import { AUTH_URL, SEEN_CONTENT_URL, WATCHLIST_URL } from '@config'
 import {
   CreateUserDto,
   Credentials,
@@ -10,20 +10,19 @@ import {
 import { authorizedPost, post } from 'utils'
 
 class AuthController {
-  private AUTH_URL = `${config.uapiUrl}/auth`
 
   public async register(req: Request<CreateUserDto>): Promise<Credentials> {
-    const response = await post(`${this.AUTH_URL}/register`, {
+    const response = await post(`${AUTH_URL}/register`, {
       ...req.body,
     })
     const token = response.token;
-    await authorizedPost(`${config.capiUrl}/watchlist`, `Bearer ${token}`)
-    await authorizedPost(`${config.capiUrl}/seenContent`, `Bearer ${token}`)
+    await authorizedPost(WATCHLIST_URL, `Bearer ${token}`)
+    await authorizedPost(SEEN_CONTENT_URL, `Bearer ${token}`)
     return response
   }
 
   public async login(req: Request<LoginDto>): Promise<Credentials> {
-    return await post(`${this.AUTH_URL}/login`, {
+    return await post(`${AUTH_URL}/login`, {
       ...req.body,
     })
   }
@@ -31,7 +30,7 @@ class AuthController {
   public async refreshCredentials(
     req: Request<RefreshCredentialsDto>
   ): Promise<Credentials> {
-    return await post(`${this.AUTH_URL}/refreshCredentials`, {
+    return await post(`${AUTH_URL}/refreshCredentials`, {
       ...req.body,
     })
   }
@@ -39,7 +38,7 @@ class AuthController {
   public async sendVerificationCode(
     req: Request<sendVerificationCodeDto>
   ): Promise<void> {
-    return await post(`${this.AUTH_URL}/sendVerificationCode`, {
+    return await post(`${AUTH_URL}/sendVerificationCode`, {
       ...req.body,
     })
   }
