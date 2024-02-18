@@ -2,10 +2,17 @@ import { FieldOptions, handleRequest, validateJWT, validateSchema } from '@middl
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { seenContentController } from '@controllers'
-import { AddSeenEpisodeSchema, AddSeenMovieSchema, AddSeenSeasonSchema, AddSeenSeriesSchema } from '@dtos'
+import { AddSeenEpisodeSchema, AddSeenMovieSchema, AddSeenSeasonSchema, AddSeenSeriesSchema, GetSeenContentSchema } from '@dtos'
 
 export function SeenContentRouter() {
     const router = Router()
+
+    router.get(
+        '/:userId',
+        validateJWT,
+        validateSchema(GetSeenContentSchema, [FieldOptions.params, FieldOptions.query]),
+        handleRequest((req) => seenContentController.getSeenContent(req), StatusCodes.OK)
+    )
 
     router.put(
         '/movies/:movieId',
