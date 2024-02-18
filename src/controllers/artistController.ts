@@ -12,6 +12,10 @@ class ArtistController {
         });
     }
 
+    public async getArtist(req: Request<any>) {
+        return await authorizedGet(`${ARTISTS_URL}/${req.params.artistId}`, req.headers.authorization);
+    }
+
 }
 
 const artistController = new ArtistController();
