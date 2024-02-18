@@ -1,17 +1,19 @@
 import { Request } from '@models';
-import { config } from '@config';
+import { ARTISTS_URL } from '@config';
 import { SearchContentDto } from '@dtos';
 import { authorizedGet } from 'utils';
 
 class ArtistController {
 
-    private ARTISTS_URL = `${config.capiUrl}/artists`;
-
     public async searchArtist(req: Request<SearchContentDto>) {
-        return await authorizedGet(`${this.ARTISTS_URL}`, req.headers.authorization, {
+        return await authorizedGet(`${ARTISTS_URL}`, req.headers.authorization, {
             query: req.query.query,
             page: req.query.page,
         });
+    }
+
+    public async getArtist(req: Request<any>) {
+        return await authorizedGet(`${ARTISTS_URL}/${req.params.artistId}`, req.headers.authorization);
     }
 
 }

@@ -6,3 +6,4 @@ export * from "./movieRouter";
 export * from "./watchlistRouter";
 export * from "./artistRouter";
 export * from "./seenContentRouter";
+export * from "./userRouter";
