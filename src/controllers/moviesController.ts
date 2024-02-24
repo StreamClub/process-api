@@ -8,17 +8,12 @@ class MoviesController {
     req: Request<GetMovieDto>,
   ): Promise<any> {
     return await authorizedGet(`${MOVIES_URL}/${req.params.movieId}`, req.headers.authorization,
-      {
-        country: req.query.country
-      });
+      { ...req.query });
   }
 
   public async searchMovie(req: Request<SearchContentDto>) {
     return await authorizedGet(`${MOVIES_URL}`, req.headers.authorization,
-      {
-        query: req.query.query,
-        page: req.query.page,
-      });
+      { ...req.query });
   }
 
 }

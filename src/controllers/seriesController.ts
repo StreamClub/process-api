@@ -7,21 +7,20 @@ class SeriesController {
 
     public async searchSeries(req: Request<SearchContentDto>) {
         return await authorizedGet(`${SERIES_URL}`, req.headers.authorization, {
-            query: req.query.query,
-            page: req.query.page,
+            ...req.query,
         });
     }
 
     public async getSeries(req: Request<GetSeriesDto>) {
         return await authorizedGet(`${SERIES_URL}/${req.params.seriesId}`, req.headers.authorization, {
-            country: req.query.country,
+            ...req.query,
         });
     }
 
     public async getSeason(req: Request<GetSeasonDto>) {
         return await authorizedGet(`${SERIES_URL}/${req.params.seriesId}/seasons/${req.params.seasonId}`,
             req.headers.authorization, {
-            country: req.query.country,
+            ...req.query,
         });
     }
 
