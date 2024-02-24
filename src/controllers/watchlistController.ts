@@ -6,8 +6,7 @@ class WatchlistController {
 
     public async get(req: Request<any>) {
         return await authorizedGet(`${WATCHLIST_URL}/${req.params.userId}`, req.headers.authorization, {
-            page: req.query.page,
-            pageSize: req.query.pageSize,
+            ...req.query
         });
     };
 
