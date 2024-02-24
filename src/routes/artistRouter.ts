@@ -1,5 +1,4 @@
 import { artistController } from "@controllers";
-import { GetArtistSchema, SearchContentSchema } from "@dtos";
 import {
     FieldOptions,
     handleRequest, validateSchema,
@@ -15,7 +14,6 @@ export function ArtistRouter() {
     router.get(
         "/",
         validateJWT,
-        validateSchema(SearchContentSchema, [FieldOptions.query]),
         handleRequest(
             (req) => artistController.searchArtist(req),
             StatusCodes.OK
@@ -25,7 +23,6 @@ export function ArtistRouter() {
     router.get(
         "/:artistId",
         validateJWT,
-        validateSchema(GetArtistSchema, [FieldOptions.params, FieldOptions.query]),
         handleRequest(
             (req) => artistController.getArtist(req),
             StatusCodes.OK
