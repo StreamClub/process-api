@@ -17,6 +17,12 @@ class SeriesController {
         });
     }
 
+    public async getCredits(req: Request<GetSeriesDto>) {
+        return await authorizedGet(`${SERIES_URL}/${req.params.seriesId}/credits`, req.headers.authorization, {
+            ...req.query,
+        });
+    }
+
     public async getSeason(req: Request<GetSeasonDto>) {
         return await authorizedGet(`${SERIES_URL}/${req.params.seriesId}/seasons/${req.params.seasonId}`,
             req.headers.authorization, {
