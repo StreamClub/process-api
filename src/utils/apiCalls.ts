@@ -29,6 +29,20 @@ export const authorizedPost = async (url: string, token: string, body = {}, head
     });
 }
 
+export const patch = async (url: string, body = {}, headers = {}) => {
+    const response = await axios.patch(url, body, {
+        headers: headers
+    });
+    return response.data;
+}
+
+export const authorizedPatch = async (url: string, token: string, body = {}, headers = {}) => {
+    return await patch(url, body, {
+        ...headers,
+        Authorization: token
+    });
+}
+
 export const put = async (url: string, body = {}, headers = {}) => {
     const response = await axios.put(url, body, {
         headers: headers

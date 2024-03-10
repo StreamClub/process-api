@@ -15,5 +15,14 @@ export function UserRouter() {
         )
     )
 
+    router.patch(
+        "/",
+        validateJWT,
+        handleRequest(
+            (req) => userController.update(req),
+            StatusCodes.CREATED
+        )
+    )
+
     return router
 }
