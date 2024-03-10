@@ -25,6 +25,15 @@ export function MovieRouter() {
         )
     );
 
+    router.get(
+        "/:movieId/credits",
+        validateJWT,
+        handleRequest(
+            (req) => movieController.getCredits(req),
+            StatusCodes.OK
+        )
+    );
+
 
     return router;
 }

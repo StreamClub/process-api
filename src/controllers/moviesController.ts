@@ -16,6 +16,11 @@ class MoviesController {
       { ...req.query });
   }
 
+  public async getCredits(req: Request<GetMovieDto>) {
+    return await authorizedGet(`${MOVIES_URL}/${req.params.movieId}/credits`,
+      req.headers.authorization, { ...req.query });
+  }
+
 }
 
 const movieController = new MoviesController();
