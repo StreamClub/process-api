@@ -1,6 +1,6 @@
 import { Request } from '@models'
 import { USER_URL } from '@config'
-import { authorizedGet } from 'utils'
+import { authorizedGet, authorizedPatch } from 'utils'
 import { GetProfileDto } from '@dtos'
 
 class UserController {
@@ -11,6 +11,13 @@ class UserController {
       ...response,
       reviewsCount: 0, //TODO: get reviews count from capi
     }
+  }
+
+  public async update(req: Request<GetProfileDto>): Promise<any> {
+    return await authorizedPatch(`${USER_URL}`, req.headers.authorization,
+      {
+        ...req.body
+      })
   }
 }
 
