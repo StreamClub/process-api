@@ -25,6 +25,15 @@ export function SeriesRouter() {
     );
 
     router.get(
+        "/:seriesId/credits",
+        validateJWT,
+        handleRequest(
+            (req) => seriesController.getCredits(req),
+            StatusCodes.OK
+        )
+    );
+
+    router.get(
         "/:seriesId/seasons/:seasonId",
         validateJWT,
         handleRequest(
