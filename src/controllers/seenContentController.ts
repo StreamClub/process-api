@@ -1,11 +1,12 @@
 import { Request } from '@models';
-import { SEEN_CONTENT_URL, config } from '@config';
+import { SEEN_CONTENT_URL } from '@config';
 import { authorizedDel, authorizedGet, authorizedPut } from 'utils';
 
 class SeenContentController {
 
     public async getSeenContent(req: Request<any>) {
-        return await authorizedGet(`${SEEN_CONTENT_URL}/${req.params.userId}`, req.headers.authorization);
+        return await authorizedGet(`${SEEN_CONTENT_URL}/${req.params.userId}`, req.headers.authorization,
+            { ...req.query });
     }
 
     public async addMovie(req: Request<any>) {
