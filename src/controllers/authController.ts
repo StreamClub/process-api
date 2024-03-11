@@ -1,11 +1,7 @@
 import { Request } from '@models'
 import { AUTH_URL, SEEN_CONTENT_URL, STREAM_PROVIDERS_URL, WATCHLIST_URL } from '@config'
 import {
-  CreateUserDto,
   Credentials,
-  LoginDto,
-  RefreshCredentialsDto,
-  sendVerificationCodeDto,
 } from '@dtos'
 import { authorizedPost, post } from 'utils'
 
