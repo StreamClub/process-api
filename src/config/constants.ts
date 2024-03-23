@@ -8,5 +8,6 @@ export const MOVIES_URL = `${config.capiUrl}/movies`;
 export const SEEN_CONTENT_URL = `${config.capiUrl}/seenContent`;
 export const STREAM_PROVIDERS_URL = `${config.capiUrl}/streamProviders`;
 export const SERIES_URL = `${config.capiUrl}/series`;
+export const REVIEWS_URL = `${config.capiUrl}/reviews`;
 export const WATCHLIST_URL = `${config.capiUrl}/watchlist`;
 export const USER_URL = `${config.uapiUrl}/users`
