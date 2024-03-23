@@ -8,3 +8,4 @@ export * from "./artistRouter";
 export * from "./seenContentRouter";
 export * from "./userRouter";
 export * from "./streamProviderRouter";
+export * from "./reviewRouter";
