@@ -20,7 +20,7 @@ class MoviesController {
     const recommendations = await authorizedGet(`${MOVIES_REC_URL}/${req.params.movieId}`, req.headers.authorization,
       { ...req.query });
     const similar: any = []
-    for (const movie of recommendations) {
+    for (const movie of recommendations.slice(0,3)) { //TODO: sacar el slice, esto esta ahora por los problemas de performance
       const recommendation = await this.getMovieDetails(movie.id, req.headers.authorization, req.query);
       similar.push({
         "id": recommendation.id,
@@ -29,7 +29,9 @@ class MoviesController {
         "releaseDate": recommendation.releaseDate
       });
     };
-    movieDetails.similar = similar;
+    if (similar.length > 0) {
+      movieDetails.similar = similar;
+    }
     return movieDetails;
   }
 
