@@ -12,3 +12,4 @@ export const REVIEWS_URL = `${config.capiUrl}/reviews`;
 export const WATCHLIST_URL = `${config.capiUrl}/watchlist`;
 export const USER_URL = `${config.uapiUrl}/users`
 export const MOVIES_REC_URL = `${config.rapiUrl}/recommendations/movie`
+export const SERIES_REC_URL = `${config.rapiUrl}/recommendations/series`
