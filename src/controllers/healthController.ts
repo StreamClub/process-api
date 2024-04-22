@@ -1,11 +1,19 @@
 import axios from 'axios';
-import { CAPI_HEALTH, UAPI_HEALTH } from '@config';
+import { CAPI_HEALTH, RAPI_HEALTH, UAPI_HEALTH, config } from '@config';
 
 class HealthController {
 
   public async wakeUpServices(): Promise<void> {
-    await axios.get(`${UAPI_HEALTH}`);
-    await axios.get(`${CAPI_HEALTH}`);
+    const servicesCalls = [
+      axios.get(`${UAPI_HEALTH}`),
+      axios.get(`${CAPI_HEALTH}`),
+      axios.get(`${RAPI_HEALTH}`, {
+        headers: {
+          'Secret': config.rapiSecret
+        }
+      })
+    ];
+    await Promise.all(servicesCalls);
     return;
   }
 
