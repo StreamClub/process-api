@@ -47,6 +47,9 @@ class ReviewController {
     }
 
     private async getReviewsWithUserNames(reviews: any, req: Request<any>) {
+        if (reviews.results.length === 0) {
+            return [];
+        }
         const userIds: string = reviews.results.map((review: any) => review.userId).join(',');
         const users = await authorizedGet(`${GET_USER_NAMES_URL}`, req.headers.authorization, {
             userIds,
