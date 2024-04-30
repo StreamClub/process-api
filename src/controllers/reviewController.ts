@@ -1,5 +1,5 @@
 import { Request } from '@models';
-import { REVIEWS_URL } from '@config';
+import { GET_USER_NAMES_URL, REVIEWS_URL } from '@config';
 import { authorizedDel, authorizedGet, authorizedPut } from 'utils';
 
 class ReviewController {
@@ -23,16 +23,40 @@ class ReviewController {
     }
 
     public async getReviewsByMovieId(req: Request<any>) {
-        return await authorizedGet(`${REVIEWS_URL}/content/movies/${req.params.movieId}`,
+        const reviews = await authorizedGet(`${REVIEWS_URL}/content/movies/${req.params.movieId}`,
             req.headers.authorization, {
             ...req.query,
         });
+        return {
+            ...reviews,
+            results: await this.getReviewsWithUserNames(reviews, req),
+
+        };
     }
 
     public async getReviewsBySeriesId(req: Request<any>) {
-        return await authorizedGet(`${REVIEWS_URL}/content/series/${req.params.seriesId}`,
+        const reviews = await authorizedGet(`${REVIEWS_URL}/content/series/${req.params.seriesId}`,
             req.headers.authorization, {
             ...req.query,
+        });
+        return {
+            ...reviews,
+            results: await this.getReviewsWithUserNames(reviews, req),
+
+        };
+    }
+
+    private async getReviewsWithUserNames(reviews: any, req: Request<any>) {
+        const userIds: string = reviews.results.map((review: any) => review.userId).join(',');
+        const users = await authorizedGet(`${GET_USER_NAMES_URL}`, req.headers.authorization, {
+            userIds,
+        });
+        return reviews.results.map((review: any) => {
+            const user = users.find((u: any) => u.id === review.userId);
+            return {
+                ...review,
+                userName: user ? user.userName : null,
+            };
         });
     }
 
