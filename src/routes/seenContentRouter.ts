@@ -7,6 +7,11 @@ export function SeenContentRouter() {
     const router = Router()
 
     router.get(
+        "/",
+        handleRequest((req) => seenContentController.getAllSeenContent(req), StatusCodes.OK)
+    )
+
+    router.get(
         '/:userId',
         validateJWT,
         handleRequest((req) => seenContentController.getSeenContent(req), StatusCodes.OK)
