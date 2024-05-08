@@ -4,6 +4,11 @@ import { authorizedDel, authorizedGet, authorizedPut } from 'utils';
 
 class SeenContentController {
 
+    public async getAllSeenContent(req: Request<any>) {
+        return await authorizedGet(SEEN_CONTENT_URL, req.headers.authorization,
+            { ...req.query });
+    }
+
     public async getSeenContent(req: Request<any>) {
         return await authorizedGet(`${SEEN_CONTENT_URL}/${req.params.userId}`, req.headers.authorization,
             { ...req.query });
