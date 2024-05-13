@@ -5,6 +5,10 @@ import { GetProfileDto } from '@dtos'
 
 class UserController {
 
+  public async search(req: Request<any>): Promise<any> {
+    return await authorizedGet(`${USER_URL}`, req.headers.authorization, { ...req.query })
+  }
+
   public async get(req: Request<GetProfileDto>): Promise<any> {
     const response = await authorizedGet(`${USER_URL}/${req.params.userId}`, req.headers.authorization)
     return {
