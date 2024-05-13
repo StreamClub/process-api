@@ -7,6 +7,15 @@ export function UserRouter() {
     const router = Router()
 
     router.get(
+        "/",
+        validateJWT,
+        handleRequest(
+            (req) => userController.search(req),
+            StatusCodes.CREATED
+        )
+    )
+
+    router.get(
         "/:userId",
         validateJWT,
         handleRequest(
