@@ -19,11 +19,11 @@ export class FriendController {
     }
 
     public async deleteFriendRequest(req: Request): Promise<void> {
-        return await authorizedDel(`${FRIEND_URL}/requests/${req.params.friendRequestId}`,
+        return await authorizedDel(`${FRIEND_URL}/requests/${req.params.requestId}`,
             req.headers.authorization, { ...req.body });
     }
 
     public async deleteFriend(req: Request): Promise<void> {
-        return await authorizedDel(`${FRIEND_URL}/${req.params.friendId}`, req.headers.authorization);
+        return await authorizedDel(`${FRIEND_URL}/${req.params.userId}`, req.headers.authorization);
     }
 }
