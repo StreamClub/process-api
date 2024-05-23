@@ -24,6 +24,12 @@ class AuthController {
     })
   }
 
+  public async loginWithGoogle(req: Request<any>): Promise<Credentials> {
+    return await post(`${AUTH_URL}/login/google`, {
+      ...req.body,
+    })
+  }
+
   public async refreshCredentials(
     req: Request<any>
   ): Promise<Credentials> {

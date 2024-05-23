@@ -1,4 +1,4 @@
-import { FieldOptions, handleRequest, validateSchema } from '@middlewares'
+import { handleRequest } from '@middlewares'
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { authController } from '@controllers'
@@ -17,6 +17,11 @@ export function AuthRouter() {
     router.post(
         '/login',
         handleRequest((req) => authController.login(req), StatusCodes.OK)
+    )
+
+    router.post(
+        '/login/google',
+        handleRequest((req) => authController.loginWithGoogle(req), StatusCodes.OK)
     )
 
     router.post(
