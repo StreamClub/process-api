@@ -25,14 +25,22 @@ class UserController {
   }
 
   public async getMovieRecommendations(req: Request<any>, res: any): Promise<any> {
-    const userId = res.locals.userId
+    const userId = res.locals.userId;
     const recommendations = await authorizedGet(`${USER_REC_URL}/movie/${userId}`, req.headers.authorization,
-      { ...req.query }, { 'Secret': config.rapiSecret })
-    const query = recommendations.map((movie: any) => movie.id).join(',')
+      { ...req.query }, { 'Secret': config.rapiSecret });
+    const query = recommendations.map((movie: any) => movie.id).join(',');
     return await authorizedGet(`${MOVIES_URL}/resume`, req.headers.authorization,
       { ids: query });
   }
 
+  public async getSeriesRecommendations(req: Request<any>, res: any): Promise<any> {
+    const userId = res.locals.userId;
+    const recommendations = await authorizedGet(`${USER_REC_URL}/series/${userId}`, req.headers.authorization,
+      { ...req.query }, { 'Secret': config.rapiSecret });
+    const query = recommendations.map((movie: any) => movie.id).join(',');
+    return await authorizedGet(`${SERIES_URL}/resume`, req.headers.authorization,
+      { ids: query });
+  }
 }
 
 const userController = new UserController()

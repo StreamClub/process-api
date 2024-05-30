@@ -43,5 +43,15 @@ export function UserRouter() {
         )
     )
 
+    router.get(
+        "/recommendations/series",
+        validateJWT,
+        loadUserContext,
+        handleRequest(
+            (req, res) => userController.getSeriesRecommendations(req, res),
+            StatusCodes.CREATED
+        )
+    )
+
     return router
 }
