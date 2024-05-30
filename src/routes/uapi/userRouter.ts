@@ -1,4 +1,4 @@
-import { handleRequest, validateJWT } from '@middlewares'
+import { handleRequest, loadUserContext, validateJWT } from '@middlewares'
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { userController } from '@controllers'
@@ -29,6 +29,16 @@ export function UserRouter() {
         validateJWT,
         handleRequest(
             (req) => userController.update(req),
+            StatusCodes.CREATED
+        )
+    )
+
+    router.get(
+        "/recommendations/movies",
+        validateJWT,
+        loadUserContext,
+        handleRequest(
+            (req, res) => userController.getMovieRecommendations(req, res),
             StatusCodes.CREATED
         )
     )

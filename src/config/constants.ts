@@ -15,4 +15,5 @@ export const WATCHLIST_URL = `${config.capiUrl}/watchlist`;
 export const USER_URL = `${config.uapiUrl}/users`
 export const FRIEND_URL = `${config.uapiUrl}/friends`
 export const MOVIES_REC_URL = `${config.rapiUrl}/recommendations/movie`
+export const USER_REC_URL = `${config.rapiUrl}/recommendations/user`
 export const SERIES_REC_URL = `${config.rapiUrl}/recommendations/series`

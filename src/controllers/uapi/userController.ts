@@ -1,5 +1,5 @@
 import { Request } from '@models'
-import { USER_URL } from '@config'
+import { MOVIES_URL, SERIES_URL, USER_REC_URL, USER_URL, config } from '@config'
 import { authorizedGet, authorizedPatch } from 'utils'
 import { GetProfileDto } from '@dtos'
 
@@ -23,6 +23,16 @@ class UserController {
         ...req.body
       })
   }
+
+  public async getMovieRecommendations(req: Request<any>, res: any): Promise<any> {
+    const userId = res.locals.userId
+    const recommendations = await authorizedGet(`${USER_REC_URL}/movie/${userId}`, req.headers.authorization,
+      { ...req.query }, { 'Secret': config.rapiSecret })
+    const query = recommendations.map((movie: any) => movie.id).join(',')
+    return await authorizedGet(`${MOVIES_URL}/resume`, req.headers.authorization,
+      { ids: query });
+  }
+
 }
 
 const userController = new UserController()
