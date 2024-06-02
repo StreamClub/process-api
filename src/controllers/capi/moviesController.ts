@@ -17,19 +17,13 @@ class MoviesController {
     req: Request<GetMovieDto>,
   ): Promise<any> {
     const movieDetails = await this.getMovieDetails(req.params.movieId, req.headers.authorization, req.query);
-    const similar: any = []
+    let similar: any = []
     try {
       const recommendations = await authorizedGet(`${MOVIES_REC_URL}/${req.params.movieId}`, req.headers.authorization,
-        { ...req.query }, {'Secret': config.rapiSecret});
-      for (const movie of recommendations.slice(0,3)) { //TODO: sacar el slice, esto esta ahora por los problemas de performance
-        const recommendation = await this.getMovieDetails(movie.id, req.headers.authorization, req.query);
-        similar.push({
-          "id": recommendation.id,
-          "title": recommendation.title,
-          "posterPath": recommendation.poster,
-          "releaseDate": recommendation.releaseDate
-        });
-      };
+        { ...req.query }, { 'Secret': config.rapiSecret });
+      const query = recommendations.map((movie: any) => movie.id).join(',');
+      similar = await authorizedGet(`${MOVIES_URL}/resume`, req.headers.authorization,
+        { ids: query });
     } catch (error) {
       console.error("Error fetching recommendations: ", error.message)
     }
