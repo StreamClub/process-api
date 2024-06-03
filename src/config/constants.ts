@@ -12,8 +12,11 @@ export const SERIES_URL = `${config.capiUrl}/series`;
 export const REVIEWS_URL = `${config.capiUrl}/reviews`;
 export const GET_USER_NAMES_URL = `${config.uapiUrl}/users/userNames`;
 export const WATCHLIST_URL = `${config.capiUrl}/watchlist`;
+export const POINTS_URL = `${config.uapiUrl}/points`;
 export const USER_URL = `${config.uapiUrl}/users`
 export const FRIEND_URL = `${config.uapiUrl}/friends`
 export const MOVIES_REC_URL = `${config.rapiUrl}/recommendations/movie`
 export const USER_REC_URL = `${config.rapiUrl}/recommendations/user`
 export const SERIES_REC_URL = `${config.rapiUrl}/recommendations/series`
+
+export const POINTS_PER_REVIEW = 500;
