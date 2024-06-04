@@ -1,13 +1,17 @@
 import { Request } from '@models';
-import { GET_USER_NAMES_URL, REVIEWS_URL } from '@config';
-import { authorizedDel, authorizedGet, authorizedPut } from 'utils';
+import { GET_USER_NAMES_URL, POINTS_PER_REVIEW, POINTS_URL, REVIEWS_URL } from '@config';
+import { authorizedDel, authorizedGet, authorizedPatch, authorizedPut } from 'utils';
 
 class ReviewController {
 
     public async addReview(req: Request<any>) {
-        return await authorizedPut(`${REVIEWS_URL}`, req.headers.authorization, {
+        const response = await authorizedPut(`${REVIEWS_URL}`, req.headers.authorization, {
             ...req.body,
         });
+        await authorizedPatch(`${POINTS_URL}`, req.headers.authorization, {
+            "amount": POINTS_PER_REVIEW,
+        });
+        return response;
     }
 
     public async deleteReview(req: Request<any>) {
