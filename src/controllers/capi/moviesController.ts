@@ -38,6 +38,11 @@ class MoviesController {
       { ...req.query });
   }
 
+  public async discoverMovies(req: Request<SearchContentDto>) {
+    return await authorizedGet(`${MOVIES_URL}/discover`, req.headers.authorization,
+      { ...req.query });
+  }
+
   public async getCredits(req: Request<GetMovieDto>) {
     return await authorizedGet(`${MOVIES_URL}/${req.params.movieId}/credits`,
       req.headers.authorization, { ...req.query });

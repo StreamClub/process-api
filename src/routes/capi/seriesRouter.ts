@@ -16,6 +16,15 @@ export function SeriesRouter() {
     );
 
     router.get(
+        "/discover",
+        validateJWT,
+        handleRequest(
+            (req) => seriesController.discoverSeries(req),
+            StatusCodes.OK
+        )
+    );
+
+    router.get(
         "/:seriesId",
         validateJWT,
         handleRequest(
