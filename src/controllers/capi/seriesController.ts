@@ -20,6 +20,12 @@ class SeriesController {
         });
     }
 
+    public async discoverSeries(req: Request<SearchContentDto>) {
+        return await authorizedGet(`${SERIES_URL}/discover`, req.headers.authorization, {
+            ...req.query,
+        });
+    }
+
     public async getSeries(req: Request<GetSeriesDto>) {
         const seriesDetails = await this.getSeriesDetails(req.params.seriesId, req.headers.authorization, req.query);
         let similar: any = []

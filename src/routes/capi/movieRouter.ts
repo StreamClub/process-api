@@ -17,6 +17,15 @@ export function MovieRouter() {
     );
 
     router.get(
+        "/discover",
+        validateJWT,
+        handleRequest(
+            (req) => movieController.discoverMovies(req),
+            StatusCodes.OK
+        )
+    );
+
+    router.get(
         "/:movieId",
         validateJWT,
         handleRequest(
