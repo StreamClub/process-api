@@ -17,6 +17,10 @@ class UserController {
     }
   }
 
+  public async getPhotos(req: Request<any>): Promise<any> {
+    return await authorizedGet(`${USER_URL}/photos`, req.headers.authorization)
+  }
+
   public async update(req: Request<GetProfileDto>): Promise<any> {
     return await authorizedPatch(`${USER_URL}`, req.headers.authorization,
       {
