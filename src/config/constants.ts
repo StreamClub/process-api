@@ -11,6 +11,7 @@ export const STREAM_PROVIDERS_URL = `${config.capiUrl}/streamProviders`;
 export const SERIES_URL = `${config.capiUrl}/series`;
 export const REVIEWS_URL = `${config.capiUrl}/reviews`;
 export const PRIVACY_URL = `${config.capiUrl}/privacy`;
+export const TRIVIA_URL = `${config.capiUrl}/trivias`;
 export const GET_USER_NAMES_URL = `${config.uapiUrl}/users/userNames`;
 export const WATCHLIST_URL = `${config.capiUrl}/watchlist`;
 export const POINTS_URL = `${config.uapiUrl}/points`;

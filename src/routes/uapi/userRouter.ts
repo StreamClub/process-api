@@ -16,6 +16,15 @@ export function UserRouter() {
     )
 
     router.get(
+        "/photos",
+        validateJWT,
+        handleRequest(
+            (req) => userController.getPhotos(req),
+            StatusCodes.CREATED
+        )
+    )
+
+    router.get(
         "/:userId",
         validateJWT,
         handleRequest(
