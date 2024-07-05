@@ -3,7 +3,8 @@ import {
   SeriesRouter, WatchlistRouter, ArtistRouter, SeenContentRouter,
   UserRouter, StreamProviderRouter, ReviewRouter,
   FriendRouter,
-  PrivacyRouter
+  PrivacyRouter,
+  TriviaRouter
 } from "@routes";
 import { Express } from "express";
 
@@ -20,4 +21,5 @@ export function registerRouters(app: Express) {
   app.use("/reviews", ReviewRouter());
   app.use("/friends", FriendRouter());
   app.use("/privacy", PrivacyRouter());
+  app.use("/trivias", TriviaRouter());
 }
