@@ -3,7 +3,7 @@
 Para correr ejecutar:
 
 ```
-sudo docker-compose up --build
+sudo docker compose up --build
 ```
 
 Para correr los tests ejecutar el siguiente comando:
