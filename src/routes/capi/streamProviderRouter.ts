@@ -35,6 +35,24 @@ export function StreamProviderRouter() {
     )
 
     router.get(
+        "/stats",
+        validateJWT,
+        handleRequest(
+            (req, res) => streamProviderController.getStats(req, res),
+            StatusCodes.OK
+        )
+    )
+
+    router.get(
+        "/subscribeRecommendations",
+        validateJWT,
+        handleRequest(
+            (req, res) => streamProviderController.getSubscribeRecommendations(req, res),
+            StatusCodes.OK
+        )
+    )
+
+    router.get(
         "/:userId",
         validateJWT,
         handleRequest(
