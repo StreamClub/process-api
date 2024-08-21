@@ -25,6 +25,15 @@ export function SeriesRouter() {
     );
 
     router.get(
+        "/recommendations",
+        validateJWT,
+        handleRequest(
+            (req) => seriesController.getRecommendations(req),
+            StatusCodes.OK
+        )
+    );
+
+    router.get(
         "/:seriesId",
         validateJWT,
         handleRequest(
