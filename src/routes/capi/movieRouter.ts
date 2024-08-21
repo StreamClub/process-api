@@ -26,6 +26,15 @@ export function MovieRouter() {
     );
 
     router.get(
+        "/recommendations",
+        validateJWT,
+        handleRequest(
+            (req) => movieController.getRecommendations(req),
+            StatusCodes.OK
+        )
+    )
+
+    router.get(
         "/:movieId",
         validateJWT,
         handleRequest(

@@ -1,5 +1,5 @@
 import { Request } from '@models';
-import { MOVIES_REC_URL, MOVIES_URL, config } from '@config';
+import { FRIEND_URL, MOVIES_REC_URL, MOVIES_URL, config } from '@config';
 import { GetMovieDto, SearchContentDto } from '@dtos';
 import { authorizedGet } from 'utils';
 class MoviesController {
@@ -41,6 +41,15 @@ class MoviesController {
   public async discoverMovies(req: Request<SearchContentDto>) {
     return await authorizedGet(`${MOVIES_URL}/discover`, req.headers.authorization,
       { ...req.query });
+  }
+
+  public async getRecommendations(req: Request<GetMovieDto>) {
+    const response = await authorizedGet(`${FRIEND_URL}/all`, req.headers.authorization, {
+      ...req.query,
+    });
+    const friendsIds = (response.friends).join(',');
+    return await authorizedGet(`${MOVIES_URL}/recommendations`,
+      req.headers.authorization, { friendsIds });
   }
 
   public async getCredits(req: Request<GetMovieDto>) {

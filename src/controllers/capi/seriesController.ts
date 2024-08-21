@@ -1,5 +1,5 @@
 import { Request } from '@models';
-import { SERIES_REC_URL, SERIES_URL, config } from '@config';
+import { FRIEND_URL, SERIES_REC_URL, SERIES_URL, config } from '@config';
 import { GetSeasonDto, GetSeriesDto, SearchContentDto } from '@dtos';
 import { authorizedGet } from 'utils';
 
@@ -48,6 +48,15 @@ class SeriesController {
         return await authorizedGet(`${SERIES_URL}/${req.params.seriesId}/credits`, req.headers.authorization, {
             ...req.query,
         });
+    }
+
+    public async getRecommendations(req: Request<GetSeriesDto>) {
+        const response = await authorizedGet(`${FRIEND_URL}/all`, req.headers.authorization, {
+            ...req.query,
+        });
+        const friendsIds = (response.friends).join(',');
+        return await authorizedGet(`${SERIES_URL}/recommendations`,
+            req.headers.authorization, { friendsIds });
     }
 
     public async getSeason(req: Request<GetSeasonDto>) {
