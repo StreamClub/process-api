@@ -4,7 +4,8 @@ import {
   UserRouter, StreamProviderRouter, ReviewRouter,
   FriendRouter,
   PrivacyRouter,
-  TriviaRouter
+  TriviaRouter,
+  GroupRouter
 } from "@routes";
 import { Express } from "express";
 
@@ -22,4 +23,5 @@ export function registerRouters(app: Express) {
   app.use("/friends", FriendRouter());
   app.use("/privacy", PrivacyRouter());
   app.use("/trivias", TriviaRouter());
+  app.use("/groups", GroupRouter());
 }
