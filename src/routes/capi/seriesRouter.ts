@@ -34,6 +34,15 @@ export function SeriesRouter() {
     );
 
     router.get(
+        "/similar",
+        validateJWT,
+        handleRequest(
+            (req) => seriesController.getSimilarSeries(req),
+            StatusCodes.OK
+        )
+    );
+
+    router.get(
         "/:seriesId",
         validateJWT,
         handleRequest(
