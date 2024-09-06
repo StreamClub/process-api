@@ -52,6 +52,11 @@ class MoviesController {
       req.headers.authorization, { friendsIds });
   }
 
+  public async getSimilarMovies(req: Request<GetMovieDto>) {
+    return await authorizedGet(`${MOVIES_URL}/similar`,
+      req.headers.authorization, { ...req.query });
+  }
+
   public async getCredits(req: Request<GetMovieDto>) {
     return await authorizedGet(`${MOVIES_URL}/${req.params.movieId}/credits`,
       req.headers.authorization, { ...req.query });

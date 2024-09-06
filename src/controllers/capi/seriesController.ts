@@ -59,6 +59,11 @@ class SeriesController {
             req.headers.authorization, { friendsIds });
     }
 
+    public async getSimilarSeries(req: Request<GetSeriesDto>) {
+        return await authorizedGet(`${SERIES_URL}/similar`,
+            req.headers.authorization, { ...req.query });
+    }
+
     public async getSeason(req: Request<GetSeasonDto>) {
         return await authorizedGet(`${SERIES_URL}/${req.params.seriesId}/seasons/${req.params.seasonId}`,
             req.headers.authorization, {

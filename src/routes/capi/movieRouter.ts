@@ -32,6 +32,15 @@ export function MovieRouter() {
             (req) => movieController.getRecommendations(req),
             StatusCodes.OK
         )
+    );
+
+    router.get(
+        "/similar",
+        validateJWT,
+        handleRequest(
+            (req) => movieController.getSimilarMovies(req),
+            StatusCodes.OK
+        )
     )
 
     router.get(
