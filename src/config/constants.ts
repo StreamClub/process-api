@@ -21,5 +21,6 @@ export const GROUP_URL = `${config.uapiUrl}/groups`
 export const MOVIES_REC_URL = `${config.rapiUrl}/recommendations/movie`
 export const USER_REC_URL = `${config.rapiUrl}/recommendations/user`
 export const SERIES_REC_URL = `${config.rapiUrl}/recommendations/series`
+export const GROUPS_REC_URL = `${config.rapiUrl}/recommendations/groups`
 
 export const POINTS_PER_REVIEW = 500;
