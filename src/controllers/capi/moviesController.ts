@@ -1,5 +1,5 @@
-import { Request } from '@models';
-import { FRIEND_URL, MOVIES_REC_URL, MOVIES_URL, config } from '@config';
+import { Request, Response } from '@models';
+import { FRIEND_URL, MOVIES_REC_URL, MOVIES_URL, USER_URL, config } from '@config';
 import { GetMovieDto, SearchContentDto } from '@dtos';
 import { authorizedGet } from 'utils';
 class MoviesController {
@@ -14,9 +14,18 @@ class MoviesController {
   }
 
   public async getMovie(
-    req: Request<GetMovieDto>,
+    req: Request<GetMovieDto>, res: Response<any>
   ): Promise<any> {
-    return await this.getMovieDetails(req.params.movieId, req.headers.authorization, req.query);
+    const userId = Number(res.locals.userId);
+    const movie = await this.getMovieDetails(req.params.movieId, req.headers.authorization, req.query);
+    const user = await authorizedGet(`${USER_URL}/${userId}`, req.headers.authorization);
+    if (movie.userReview) {
+      movie.userReview = {
+        ...movie.userReview,
+        photoId: user.photoId,
+      };
+    }
+    return movie;
   }
 
   public async getMovieRecommendations(req: Request<GetMovieDto>) {
