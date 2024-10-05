@@ -27,7 +27,10 @@ class SeriesController {
     }
 
     public async getSeries(req: Request<GetSeriesDto>) {
-        const seriesDetails = await this.getSeriesDetails(req.params.seriesId, req.headers.authorization, req.query);
+        return await this.getSeriesDetails(req.params.seriesId, req.headers.authorization, req.query);
+    }
+
+    public async getSeriesRecommendations(req: Request<GetSeriesDto>) {
         let similar: any = []
         try {
             const recommendations = await authorizedGet(`${SERIES_REC_URL}/${req.params.seriesId}`, req.headers.authorization,
@@ -38,11 +41,9 @@ class SeriesController {
         } catch (error) {
             console.error("Error fetching recommendations: ", error.message)
         }
-        if (similar.length > 0) {
-            seriesDetails.similar = similar;
-        }
-        return seriesDetails;
+        return similar;
     }
+
 
     public async getCredits(req: Request<GetSeriesDto>) {
         return await authorizedGet(`${SERIES_URL}/${req.params.seriesId}/credits`, req.headers.authorization, {
