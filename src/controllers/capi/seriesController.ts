@@ -1,5 +1,5 @@
-import { Request } from '@models';
-import { FRIEND_URL, SERIES_REC_URL, SERIES_URL, config } from '@config';
+import { Request, Response } from '@models';
+import { FRIEND_URL, SERIES_REC_URL, SERIES_URL, USER_URL, config } from '@config';
 import { GetSeasonDto, GetSeriesDto, SearchContentDto } from '@dtos';
 import { authorizedGet } from 'utils';
 
@@ -26,8 +26,17 @@ class SeriesController {
         });
     }
 
-    public async getSeries(req: Request<GetSeriesDto>) {
-        return await this.getSeriesDetails(req.params.seriesId, req.headers.authorization, req.query);
+    public async getSeries(req: Request<GetSeriesDto>, res: Response<any>) {
+        const userId = Number(res.locals.userId);
+        const series = await this.getSeriesDetails(req.params.seriesId, req.headers.authorization, req.query);
+        const user = await authorizedGet(`${USER_URL}/${userId}`, req.headers.authorization);
+        if (series.userReview) {
+            series.userReview = {
+                ...series.userReview,
+                photoId: user.photoId,
+            };
+        }
+        return series;
     }
 
     public async getSeriesRecommendations(req: Request<GetSeriesDto>) {

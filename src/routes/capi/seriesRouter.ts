@@ -46,7 +46,7 @@ export function SeriesRouter() {
         "/:seriesId",
         validateJWT,
         handleRequest(
-            (req) => seriesController.getSeries(req),
+            (req, res) => seriesController.getSeries(req, res),
             StatusCodes.OK
         )
     );
