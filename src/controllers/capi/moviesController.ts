@@ -16,7 +16,10 @@ class MoviesController {
   public async getMovie(
     req: Request<GetMovieDto>,
   ): Promise<any> {
-    const movieDetails = await this.getMovieDetails(req.params.movieId, req.headers.authorization, req.query);
+    return await this.getMovieDetails(req.params.movieId, req.headers.authorization, req.query);
+  }
+
+  public async getMovieRecommendations(req: Request<GetMovieDto>) {
     let similar: any = []
     try {
       const recommendations = await authorizedGet(`${MOVIES_REC_URL}/${req.params.movieId}`, req.headers.authorization,
@@ -27,10 +30,7 @@ class MoviesController {
     } catch (error) {
       console.error("Error fetching recommendations: ", error.message)
     }
-    if (similar.length > 0) {
-      movieDetails.similar = similar;
-    }
-    return movieDetails;
+    return similar;
   }
 
   public async searchMovie(req: Request<SearchContentDto>) {
