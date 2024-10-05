@@ -1,5 +1,5 @@
 import { movieController } from "@controllers";
-import { handleRequest, validateJWT } from "@middlewares";
+import { handleRequest, loadUserContext, validateJWT } from "@middlewares";
 import { Router } from "express";
 import { StatusCodes } from "http-status-codes";
 
@@ -46,8 +46,9 @@ export function MovieRouter() {
     router.get(
         "/:movieId",
         validateJWT,
+        loadUserContext,
         handleRequest(
-            (req) => movieController.getMovie(req),
+            (req, res) => movieController.getMovie(req, res),
             StatusCodes.OK
         )
     );
