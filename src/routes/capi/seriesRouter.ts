@@ -1,5 +1,5 @@
 import { seriesController } from "@controllers";
-import { handleRequest, validateJWT } from "@middlewares";
+import { handleRequest, loadUserContext, validateJWT } from "@middlewares";
 import { Router } from "express";
 import { StatusCodes } from "http-status-codes";
 
@@ -45,6 +45,7 @@ export function SeriesRouter() {
     router.get(
         "/:seriesId",
         validateJWT,
+        loadUserContext,
         handleRequest(
             (req, res) => seriesController.getSeries(req, res),
             StatusCodes.OK
