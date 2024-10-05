@@ -53,6 +53,15 @@ export function MovieRouter() {
     );
 
     router.get(
+        "/:movieId/recommendations",
+        validateJWT,
+        handleRequest(
+            (req) => movieController.getMovieRecommendations(req),
+            StatusCodes.OK
+        )
+    );
+
+    router.get(
         "/:movieId/credits",
         validateJWT,
         handleRequest(
