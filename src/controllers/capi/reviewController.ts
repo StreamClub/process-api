@@ -63,6 +63,7 @@ class ReviewController {
             return {
                 ...review,
                 userName: user ? user.userName : null,
+                photoId: user ? user.photoId : null,
             };
         });
     }
